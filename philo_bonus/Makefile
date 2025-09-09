@@ -1,4 +1,4 @@
-NAME = philo
+NAME = philo_bonus
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
@@ -11,12 +11,15 @@ OBJ_DIR = obj
 INCLUDES = include
 
 SRC = \
-	init.c \
-	main.c \
-	routine.c \
-	utils.c \
+	checks_bonus.c \
+	init_bonus.c \
+	main_bonus.c \
+	routine_bonus.c \
+	utils_bonus.c \
 
 LIB = \
+	ft_atoi.c \
+	ft_atol.c \
 
 SRC_ALL = \
 	$(addprefix $(SRC_DIR)/, $(SRC)) \
@@ -38,7 +41,6 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "$(RED)🧼 Exécutable supprimé.$(RESET)"
 
 re: fclean all
 

@@ -3,16 +3,19 @@
         {
             "name": "Linux",
             "includePath": [
-                    "${workspaceFolder}/include",
-                    "/usr/include",
-                    "/usr/include/x86_64-linux-gnu"
+                "${workspaceFolder}/include",
+                "/usr/include",
+                "/usr/include/x86_64-linux-gnu",
+                "${workspaceFolder}/philo_bonus/include"
             ],
             "defines": [],
-                "compilerPath": "/usr/bin/gcc",
-                "cStandard": "c11",
-                "cppStandard": "c++17",
-                "intelliSenseMode": "linux-gcc-x64",
-                "compilerArgs": ["-pthread"]
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-gcc-x64",
+            "compilerArgs": [
+                "-pthread"
+            ]
         }
     ],
     "version": 4

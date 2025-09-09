@@ -42,7 +42,6 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "$(RED)🧼 Exécutable supprimé.$(RESET)"
 
 re: fclean all
 

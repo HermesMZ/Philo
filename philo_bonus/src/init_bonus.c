@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zoum <zoum@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mzimeris <mzimeris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/05 01:29:43 by zoum              #+#    #+#             */
-/*   Updated: 2025/09/05 01:29:50 by zoum             ###   ########.fr       */
+/*   Created: 2025/09/09 18:13:16 by mzimeris          #+#    #+#             */
+/*   Updated: 2025/09/09 18:49:34 by mzimeris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-void	init_philos_and_mutex(t_data *data)
+t_data	*init_philos_and_semaphore(t_data *data)
 {
-	int		i;
+	int	i;
 
 	i = 0;
+	data->philos = malloc(sizeof(t_philo) * data->num_philos);
+	if (!data->philos)
+		return (free(data), NULL);
+	data->forks = sem_open("/forks_sem", O_CREAT, 0644, data->num_philos);
+	if (data->forks == SEM_FAILED)
+		return (free(data->philos), free(data), NULL);
 	while (i < data->num_philos)
 	{
 		data->philos[i].id = i + 1;
-		data->philos[i].left_fork = i;
-		data->philos[i].right_fork = (i + 1) % data->num_philos;
 		data->philos[i].meals_eaten = 0;
-		data->philos[i].last_meal_time = 0;
+		data->philos[i].last_meal_time = get_time_in_ms();
 		data->philos[i].data = data;
-		pthread_mutex_init(&data->forks[i], NULL);
 		i++;
 	}
-	pthread_mutex_init(&data->print_mutex, NULL);
+	return (data);
 }
 
 t_data	*init_data(int argc, char **argv)
@@ -44,15 +47,11 @@ t_data	*init_data(int argc, char **argv)
 	data->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		data->num_meals = ft_atoi(argv[5]);
-	data->all_ate = 0;
-	data->forks = malloc(sizeof(pthread_mutex_t) * data->num_philos);
-	if (!data->forks)
-		return (free(data), NULL);
-	data->philos = malloc(sizeof(t_philo) * data->num_philos);
-	if (!data->philos)
-	{
-		free(data->forks);
-		return (free(data), NULL);
-	}
+	else
+		data->num_meals = -1;
+	data->start_time = get_time_in_ms();
+	data = init_philos_and_semaphore(data);
+	if (!data)
+		return (NULL);
 	return (data);
 }

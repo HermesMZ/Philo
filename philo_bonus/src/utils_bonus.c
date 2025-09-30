@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzimeris <mzimeris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zoum <zoum@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 18:12:55 by mzimeris          #+#    #+#             */
-/*   Updated: 2025/09/15 12:14:37 by mzimeris         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:56:10 by zoum             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	safe_print(t_philo *philo, const char *message)
 	{
 		sem_wait(philo->data->writing);
 		if (!philo->should_stop)
-			printf("%ld %d %s\n", get_time_in_ms(), philo->id, message);
+			printf("%10ld %3d %s\n", get_time_in_ms()
+				- philo->data->start_time, philo->id, message);
 		sem_post(philo->data->writing);
 	}
 }

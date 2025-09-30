@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzimeris <mzimeris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zoum <zoum@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 17:14:58 by mzimeris          #+#    #+#             */
-/*   Updated: 2025/09/17 14:10:58 by mzimeris         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:52:39 by zoum             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	*monitor_stop(void *arg)
 	philo = (t_philo *)arg;
 	while (!philo->should_stop)
 	{
-		if (get_time_in_ms() - philo->last_meal_time > philo->data->time_to_die)
+		if (get_time_in_ms() - philo->last_meal_time
+			>= philo->data->time_to_die)
 		{
-			usleep(1000);
 			if (philo->should_stop)
 				break ;
 			i = 0;

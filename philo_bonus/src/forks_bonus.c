@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzimeris <mzimeris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zoum <zoum@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 17:13:10 by mzimeris          #+#    #+#             */
-/*   Updated: 2025/09/17 14:05:30 by mzimeris         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:51:54 by zoum             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	philo_eating(t_philo *philo)
 	long	start_time;
 
 	start_time = get_time_in_ms();
+	philo->last_meal_time = start_time;
 	if (philo->should_stop || death_check(philo))
 		return (1);
 	safe_print(philo, "is eating");
@@ -55,7 +56,6 @@ int	philo_eating(t_philo *philo)
 			return (release_forks(philo), 1);
 		usleep(10);
 	}
-	philo->last_meal_time = get_time_in_ms();
 	release_forks(philo);
 	philo->meals_eaten++;
 	if (philo->data->num_meals != -1
